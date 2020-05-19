@@ -51,7 +51,6 @@ class GameFragment : Fragment() {
                 false
         )
 
-        Log.i("GameFragment", "Called ViewModelProviders.of!")
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
         binding.correctButton.setOnClickListener {
@@ -62,12 +61,12 @@ class GameFragment : Fragment() {
             viewModel.onSkip()
         }
 
-        // Observer to check for score changed, to update UI.
+        // Setting up LiveData observation relationship
+
         viewModel.score.observe(this, Observer { newScore ->
             binding.scoreText.text = newScore.toString()
         })
 
-        // Observer to check for word changed, to update UI.
         viewModel.word.observe(this, Observer { newWord ->
             binding.wordText.text = newWord.toString()
         })
